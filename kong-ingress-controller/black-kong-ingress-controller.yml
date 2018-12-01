@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: black-kong-colors-ingress
+  annotations:
+spec:
+  rules:
+  - host: black.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: black-svc
+          servicePort: 80

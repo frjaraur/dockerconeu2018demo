@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: colors-nginx-ingress
+  annotations:
+    nginx.com/sticky-cookie-services: "serviceName=red-svc red_svc_id expires=60s path=/;"
+    nginx.com/health-checks: "true"
+    nginx.org/rewrites: "serviceName=red-svc rewrite=/;"
+
+spec:
+  rules:
+  - host: blue.example.com
+    http:
+      paths:
+      - path: /red/
+        backend:
+          serviceName: red-svc
+          servicePort: 80
+      - backend:
+          serviceName: blue-svc
+          servicePort: 80
+  - host: red.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: red-svc
+          servicePort: 80
