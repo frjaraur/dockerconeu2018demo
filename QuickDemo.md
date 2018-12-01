@@ -24,7 +24,7 @@ kubectl get service/nginx-ingress -n nginx-ingress -o json|jq '[.spec.ports]'
 export INGRESS_IP=$(curl -s ifconfig.co )
 
 
-export INGRESS_HTTP_PORT=$(kubectl get service/nginx-ingress -n nginx-ingress -o json|jq '[[.spec.ports][][]|select(.name=="http").nodePort][0]')
+export INGRESS_HTTP_PORT=$(kubectl get service/nginx-ingress -n nginx-ingress -o json|jq '[[.spec.ports][][]|select(.name=="http").nodePort][]')
 
 ~~~
 
@@ -99,7 +99,7 @@ kubectl get service/kong-proxy -n kong -o json|jq '[.spec.ports]'
 
 export KONG_PROXY_IP=$(curl -s ifconfig.co)
 
-export KONG_HTTP_PORT=$(kubectl get service/kong-proxy -n kong -o json|jq '[[.spec.ports][][]|select(.name=="kong-proxy").nodePort][0]')
+export KONG_HTTP_PORT=$(kubectl get service/kong-proxy -n kong -o json|jq '[[.spec.ports][][]|select(.name=="kong-proxy").nodePort][]')
 ~~~
 ### Now we deploy black-ingress ingress resource for accesing black application
 ~~~
